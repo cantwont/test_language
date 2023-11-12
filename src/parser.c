@@ -53,12 +53,12 @@ ASTNode* parse_expression(Parser* parser) {
         left->left = left;
         left->right = right;
 
-        unget_token(parser->lexer, token);
         token = get_next_token(parser->lexer);
     }
     unget_token(parser->lexer, token);
     return left;
 }
+
 
 ASTNode* parse_program(Parser* parser) {
     return parse_expression(parser);

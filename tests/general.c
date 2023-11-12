@@ -25,20 +25,16 @@ void test_lexer(const char* input, const TokenType expected_tokens[], size_t exp
     for (size_t i = 0; i < expected_tokens_count; ++i) {
         Token token = get_next_token(lexer);
 
-        // Print information about the token and expected type
         printf("Token Type: %s, Expected Type: %s\n",
                token_type_to_string(token.type), token_type_to_string(expected_tokens[i]));
 
-        // Check if the token type matches the expected type
         if (token.type != expected_tokens[i]) {
             printf("Assertion failed: Token type does not match expected type!\n");
             printf("Exiting...\n");
-            // Add a breakpoint here or set a trace signal to investigate further
             return;
         }
     }
 
-    // Add a print statement to indicate the loop completed successfully
     printf("Lexer test successful!\n");
 
     destroy_lexer(lexer);
