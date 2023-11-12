@@ -3,6 +3,8 @@
 
 #include "lexer.h"
 
+struct ASTNode;
+
 typedef enum {
     NODE_NUMBER,
     NODE_ADDITION,

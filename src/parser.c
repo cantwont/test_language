@@ -3,8 +3,12 @@
 //
 
 #include "../include/parser.h"
+#include "../include/lexer.h"
+#include "../include/interpreter.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+const char* token_type_to_string(TokenType type);
 
 Parser* init_parser(Lexer* lexer) {
     Parser* parser = (Parser*)malloc(sizeof(Parser));
@@ -39,10 +43,18 @@ ASTNode* parse_term(Parser* parser) {
 ASTNode* parse_expression(Parser* parser) {
     ASTNode* left = parse_term(parser);
 
+    if (left == NULL) {
+        return NULL;
+    }
+
     Token token = get_next_token(parser->lexer);
 
     while (token.type == TOKEN_PLUS || token.type == TOKEN_MINUS) {
         ASTNode* right = parse_term(parser);
+
+        if (right == NULL) {
+            return NULL;
+        }
 
         ASTNodeType node_type = (token.type == TOKEN_PLUS) ? NODE_ADDITION : NODE_SUBTRACTION;
 
@@ -74,8 +86,18 @@ void print_ast(ASTNode* node, int level) {
 
 
 ASTNode* parse_program(Parser* parser) {
+    char buffer[BUFSIZ];
     ASTNode* ast = parse_expression(parser);
-    print_ast(ast, 0);
+
+    if (ast != NULL) {
+        printf("Interpreting:\n");
+        print_ast(ast, 0);
+
+        interpret(ast, buffer);
+
+        printf("Result: %s\n", buffer);
+    }
+
     return ast;
 }
 

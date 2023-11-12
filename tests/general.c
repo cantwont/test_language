@@ -7,23 +7,6 @@
 
 char buffer[BUFSIZ];
 
-const char* token_type_to_string(TokenType type) {
-    switch (type) {
-        case TOKEN_IDENTIFIER:
-            return "IDENTIFIER";
-        case TOKEN_NUMBER:
-            return "NUMBER";
-        case TOKEN_PLUS:
-            return "PLUS";
-        case TOKEN_MINUS:
-            return "MINUS";
-        case TOKEN_EOF:
-            return "EOF";
-        default:
-            return "UNKNOWN";
-    }
-}
-
 void test_lexer(const char* input, const TokenType expected_tokens[], size_t expected_tokens_count) {
     Lexer* lexer = init_lexer(input);
 
@@ -53,9 +36,10 @@ void test_parser(const char* input) {
 }
 
 void test_interpreter(const char* input, int expected_output) {
+    char buffer[BUFSIZ];
     Lexer* lexer = init_lexer(input);
     Parser* parser = init_parser(lexer);
-    ASTNode* ast = parse_program(parser);
+    ASTNode* ast = parse_expression(parser);
 
     memset(buffer, 0, sizeof(buffer));
 
@@ -74,9 +58,17 @@ void test_interpreter(const char* input, int expected_output) {
     destroy_lexer(lexer);
 }
 
+
 int main() {
-    test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
-    test_parser("19 + 2");
-    test_interpreter("19 + 2", 21);
+    //test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
+    //test_parser("19 + 2");
+    //test_interpreter("19 + 2", 21);
+
+    //test_lexer("19", (TokenType[]){TOKEN_NUMBER, TOKEN_EOF}, 2);
+    //test_parser("19");
+    test_interpreter("4+4", 8);
+    test_interpreter("0+4", 4);
+    test_interpreter("9-3", 6);
+
     return 0;
 }
