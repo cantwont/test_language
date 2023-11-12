@@ -5,7 +5,6 @@
 #include "../include/parser.h"
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "../include/lexer.h"
 
 Parser* init_parser(Lexer* lexer) {
