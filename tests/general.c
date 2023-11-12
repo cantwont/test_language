@@ -60,15 +60,17 @@ void test_interpreter(const char* input, int expected_output) {
 
 
 int main() {
-    //test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
-    //test_parser("19 + 2");
-    //test_interpreter("19 + 2", 21);
-
-    //test_lexer("19", (TokenType[]){TOKEN_NUMBER, TOKEN_EOF}, 2);
-    //test_parser("19");
-    test_interpreter("4+4", 8);
-    test_interpreter("0+4", 4);
-    test_interpreter("9-3", 6);
-
+    test_interpreter("5*2", 10);
+    test_interpreter("10/2", 5);
     return 0;
 }
+
+//test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
+//test_parser("19 + 2");
+//test_interpreter("19 + 2", 21);
+
+//test_lexer("19", (TokenType[]){TOKEN_NUMBER, TOKEN_EOF}, 2);
+//test_parser("19");
+//test_interpreter("4+4", 8);
+// test_interpreter("0+4", 4);
+// test_interpreter("9-3", 6);

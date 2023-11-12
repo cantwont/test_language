@@ -39,6 +39,10 @@ const char* token_to_type_string(TokenType token_type) {
             return "PLUS";
         case TOKEN_MINUS:
             return "MINUS";
+        case TOKEN_MULTIPLY:
+            return "MULTIPLY";
+        case TOKEN_DIVIDE:
+            return "DIVIDE";
         case TOKEN_EOF:
             return "EOF";
         case TOKEN_IF:
@@ -148,6 +152,18 @@ Token get_next_token(Lexer* lexer) {
             token_minus.type = TOKEN_MINUS;
             token_minus.lexeme = "-";
             return token_minus;
+        case '*':
+            lexer->current_position++;
+            Token token_multiply;
+            token_multiply.type = TOKEN_MULTIPLY;
+            token_multiply.lexeme = "*";
+            return token_multiply;
+        case '/':
+            lexer->current_position++;
+            Token token_divide;
+            token_divide.type = TOKEN_DIVIDE;
+            token_divide.lexeme = "/";
+            return token_divide;
         case '=':
             lexer->current_position++;
             Token token_equal;

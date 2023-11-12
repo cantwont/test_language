@@ -14,6 +14,8 @@ add_executable(lang2test
         include/interpreter.h
         include/compiler.h
         tests/general.c
+        src/ast.c
+        include/ast.h
 )
 
 set(CMAKE_BUILD_TYPE Debug)
