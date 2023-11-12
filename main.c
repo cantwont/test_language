@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    printf("This 'main.c' file is not needed.\n");
+    printf("not needed rn");
     return 0;
 }

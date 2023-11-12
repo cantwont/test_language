@@ -44,24 +44,39 @@ ASTNode* parse_expression(Parser* parser) {
     while (token.type == TOKEN_PLUS || token.type == TOKEN_MINUS) {
         ASTNode* right = parse_term(parser);
 
-        if (token.type == TOKEN_PLUS) {
-            left = create_ast_node(NODE_ADDITION, 0);
-        } else {
-            left = create_ast_node(NODE_SUBTRACTION, 0);
-        }
+        ASTNodeType node_type = (token.type == TOKEN_PLUS) ? NODE_ADDITION : NODE_SUBTRACTION;
 
-        left->left = left;
-        left->right = right;
+        ASTNode* new_node = create_ast_node(node_type, 0);
+        new_node->left = left;
+        new_node->right = right;
+
+        left = new_node;
 
         token = get_next_token(parser->lexer);
     }
+
     unget_token(parser->lexer, token);
     return left;
 }
 
+void print_ast(ASTNode* node, int level) {
+    if (node != NULL) {
+        for (int i = 0; i < level; i++) {
+            printf("  ");
+        }
+
+        printf("Node: type=%d, value=%d\n", node->type, node->value);
+
+        print_ast(node->left, level + 1);
+        print_ast(node->right, level + 1);
+    }
+}
+
 
 ASTNode* parse_program(Parser* parser) {
-    return parse_expression(parser);
+    ASTNode* ast = parse_expression(parser);
+    print_ast(ast, 0);
+    return ast;
 }
 
 void destroy_parser(Parser* parser) {

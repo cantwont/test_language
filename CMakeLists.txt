@@ -3,20 +3,8 @@ project(lang2test C)
 
 set(CMAKE_C_STANDARD 11)
 
-#add_executable(lang2test
-#        WIN32
-#        src/lexer.c
-#        src/parser.c
-#        src/interpreter.c
-#        src/compiler.c
-#        src/main.c
-#        include/lexer.h
-#        include/parser.h
-#        include/interpreter.h
-#        include/compiler.h
-#)
-
 add_executable(lang2test
+        #main.c
         src/lexer.c
         src/parser.c
         src/interpreter.c

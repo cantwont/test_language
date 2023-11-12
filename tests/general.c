@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include "../include/lexer.h"
 #include "../include/parser.h"
+#include "../include/interpreter.h"
+#include <stdlib.h>
+#include <string.h>
+
+char buffer[BUFSIZ];
 
 const char* token_type_to_string(TokenType type) {
     switch (type) {
@@ -47,8 +52,31 @@ void test_parser(const char* input) {
     destroy_lexer(lexer);
 }
 
+void test_interpreter(const char* input, int expected_output) {
+    Lexer* lexer = init_lexer(input);
+    Parser* parser = init_parser(lexer);
+    ASTNode* ast = parse_program(parser);
+
+    memset(buffer, 0, sizeof(buffer));
+
+    interpret(ast, buffer);
+    printf("Interpreting: %s\n", buffer);
+
+    int actual_output = atoi(buffer);
+
+    if (actual_output == expected_output) {
+        printf("Interpreter test succeeded!\n");
+    } else {
+        printf("Interpreter test failed! Expected: %d, Actual: %d\n", expected_output, actual_output);
+    }
+
+    destroy_parser(parser);
+    destroy_lexer(lexer);
+}
+
 int main() {
-    test_lexer("1 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
-    test_parser("1 + 2");
+    test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
+    test_parser("19 + 2");
+    test_interpreter("19 + 2", 21);
     return 0;
 }

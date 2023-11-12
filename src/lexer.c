@@ -29,10 +29,20 @@ Token get_next_token(Lexer* lexer) {
     if (isdigit(lexer->source_code[lexer->current_position])) {
         Token token;
         token.type = TOKEN_NUMBER;
-        token.lexeme = NULL;
-        lexer->current_position++;
+        int length = 0;
+
+        while (isdigit(lexer->source_code[lexer->current_position + length])) {
+            length++;
+        }
+
+        token.lexeme = (char*)malloc(length + 1);
+        strncpy(token.lexeme, lexer->source_code + lexer->current_position, length);
+        token.lexeme[length] = '\0';
+
+        lexer->current_position += length;
         return token;
     }
+
 
     if (lexer->source_code[lexer->current_position] == '+') {
         Token token;
