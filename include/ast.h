@@ -16,6 +16,7 @@ typedef enum {
 typedef struct ASTNode {
     ASTNodeType type;
     int value;
+    float float_value;
     struct ASTNode* left;
     struct ASTNode* right;
 } ASTNode;

@@ -35,7 +35,7 @@ void test_parser(const char* input) {
     destroy_lexer(lexer);
 }
 
-void test_interpreter(const char* input, int expected_output) {
+void test_interpreter(const char* input, double expected_output) {
     char buffer[BUFSIZ];
     Lexer* lexer = init_lexer(input);
     Parser* parser = init_parser(lexer);
@@ -46,12 +46,12 @@ void test_interpreter(const char* input, int expected_output) {
     interpret(ast, buffer);
     printf("Interpreting: %s\n", buffer);
 
-    int actual_output = atoi(buffer);
+    double actual_output = atof(buffer);
 
     if (actual_output == expected_output) {
         printf("Interpreter test succeeded!\n");
     } else {
-        printf("Interpreter test failed! Expected: %d, Actual: %d\n", expected_output, actual_output);
+        printf("Interpreter test failed! Expected: %f, Actual: %f\n", expected_output, actual_output);
     }
 
     destroy_parser(parser);
@@ -61,16 +61,7 @@ void test_interpreter(const char* input, int expected_output) {
 
 int main() {
     test_interpreter("5*2", 10);
-    test_interpreter("10/2", 5);
+    test_interpreter("14/8", 1.74); // WILL FAIL, TESTING ACCURACY FOR THIS ONE
+    test_interpreter("14/8", 1.75);
     return 0;
 }
-
-//test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
-//test_parser("19 + 2");
-//test_interpreter("19 + 2", 21);
-
-//test_lexer("19", (TokenType[]){TOKEN_NUMBER, TOKEN_EOF}, 2);
-//test_parser("19");
-//test_interpreter("4+4", 8);
-// test_interpreter("0+4", 4);
-// test_interpreter("9-3", 6);

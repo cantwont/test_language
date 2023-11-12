@@ -1,0 +1,14 @@
+todo:
+    strings
+    other data types (most importantly strings)
+    fix "Token Type: UNKNOWN"
+saving:
+    //test_lexer("19 + 2", (TokenType[]){TOKEN_NUMBER, TOKEN_PLUS, TOKEN_NUMBER, TOKEN_EOF}, 4);
+    //test_parser("19 + 2");
+    //test_interpreter("19 + 2", 21);
+
+    //test_lexer("19", (TokenType[]){TOKEN_NUMBER, TOKEN_EOF}, 2);
+    //test_parser("19");
+    //test_interpreter("4+4", 8);
+    // test_interpreter("0+4", 4);
+    // test_interpreter("9-3", 6);

@@ -36,6 +36,7 @@ typedef struct {
     TokenType type;
     char* lexeme;
     int value;
+    float float_value;
 } Token;
 
 typedef struct {

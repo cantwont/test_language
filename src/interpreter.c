@@ -89,26 +89,15 @@ void interpret(ASTNode* node, char* buffer) {
             snprintf(buffer, BUFSIZ, "%d", result);
             break;
         }
-        case NODE_DIVISION: {
-            char leftBuffer[BUFSIZ];
-            char rightBuffer[BUFSIZ];
-
-            interpret(node->left, leftBuffer);
-            interpret(node->right, rightBuffer);
-
-            printf("Debug NODE_DIVISION: left=%s right=%s\n", leftBuffer, rightBuffer);
-
-            int leftValueDivision = atoi(leftBuffer);
-            int rightValueDivision = atoi(rightBuffer);
-
-            printf("Debug NODE_DIVISION: leftValue=%d rightValue=%d\n", leftValueDivision, rightValueDivision);
-
-            result = leftValueDivision / rightValueDivision;
-            snprintf(buffer, BUFSIZ, "%d", result);
+        case NODE_DIVISION:
+            interpret(node->left, buffer);
+            float leftValueDiv = atof(buffer);
+            interpret(node->right, buffer);
+            float rightValueDiv = atof(buffer);
+            snprintf(buffer, BUFSIZ, "%f", leftValueDiv / rightValueDiv);
             break;
-        }
         default:
-            snprintf(buffer, BUFSIZ, "Error: Unknown node type");
+            fprintf(stderr, "Error: Unknown node type\n");
             break;
     }
 }

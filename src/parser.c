@@ -32,10 +32,11 @@ Parser* init_parser(Lexer* lexer) {
     return parser;
 }
 
-ASTNode* create_ast_node(ASTNodeType type, int value) {
+ASTNode* create_ast_node(ASTNodeType type, int value, float float_value) {
     ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
     node->type = type;
     node->value = value;
+    node->float_value = float_value;
     node->left = NULL;
     node->right = NULL;
     return node;
@@ -45,7 +46,7 @@ ASTNode* parse_number(Parser* parser) {
     Token token = get_next_token(parser->lexer);
 
     if (token.type == TOKEN_NUMBER) {
-        return create_ast_node(NODE_NUMBER, token.value);
+        return create_ast_node(NODE_NUMBER, token.value, 0.0);
     } else {
         printf("ERR: Expected a number\n");
         return NULL;
@@ -91,7 +92,7 @@ ASTNode* parse_expression(Parser* parser) {
                 break;
         }
 
-        ASTNode* new_node = create_ast_node(node_type, 0);
+        ASTNode* new_node = create_ast_node(node_type, 0, 0.0);
         new_node->left = left;
         new_node->right = right;
 
