@@ -1,7 +1,3 @@
-//
-// Created by gabriel on 11/11/2023.
-//
-
 #ifndef PARSER_H
 #define PARSER_H
 
@@ -15,7 +11,7 @@ typedef enum {
 
 typedef struct ASTNode {
     ASTNodeType type;
-    int value;  // Only used for NODE_NUMBER
+    int value;
     struct ASTNode* left;
     struct ASTNode* right;
 } ASTNode;
@@ -25,8 +21,11 @@ typedef struct {
 } Parser;
 
 Parser* init_parser(Lexer* lexer);
-ASTNode* parse(Parser* parser);
+ASTNode* parse_number(Parser* parser);
+ASTNode* parse_term(Parser* parser);
+ASTNode* parse_expression(Parser* parser);
+ASTNode* parse_program(Parser* parser);
 void destroy_parser(Parser* parser);
 void unget_token(Lexer* lexer, Token token);
 
-#endif //PARSER_H
+#endif // PARSER_H
